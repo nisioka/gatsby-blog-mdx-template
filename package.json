@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "gatsby-blog-mdx-template",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "A starter for a blog powered by Gatsby and MarkdownJSX",
+  "version": "1.0.0",
+  "author": "https://github.com/nisioka",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/nisioka/gatsby-blog-mdx-template/issues"
   },
   "dependencies": {
     "@babel/plugin-transform-numeric-separator": "^7.24.1",
@@ -29,7 +29,6 @@
     "gatsby-remark-prismjs": "^7.13.1",
     "gatsby-remark-responsive-iframe": "^6.13.1",
     "gatsby-source-filesystem": "^5.13.1",
-    "gatsby-source-wordpress": "^7.13.4",
     "gatsby-transformer-sharp": "^5.13.1",
     "prismjs": "^1.29.0",
     "react": "^18.1.0",
@@ -44,14 +43,14 @@
     "prettier": "^2.8.8",
     "typescript": "^4.5.4"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/nisioka/gatsby-blog-mdx-template#readme",
   "keywords": [
     "gatsby"
   ],
   "license": "0BSD",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/nisioka/gatsby-blog-mdx-template.git"
   },
   "scripts": {
     "build": "gatsby build",

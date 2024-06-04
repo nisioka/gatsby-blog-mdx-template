@@ -23,7 +23,6 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
 
   type AllPost = {
     allMdx: AllMdx
-    allWpPost: AllWpPost
   }
 
   // Get all markdown blog posts sorted by date
@@ -43,22 +42,6 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
             nodeType
             category
             tags
-          }
-        }
-      }
-      allWpPost(sort: { date: DESC }) {
-        nodes {
-          id
-          slug
-          categories {
-            nodes {
-              name
-            }
-          }
-          tags {
-            nodes {
-              name
-            }
           }
         }
       }
@@ -92,16 +75,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
       tags: post.frontmatter.tags,
     }
     return mdx
-  }).concat(result.data?.allWpPost.nodes.map(post => {
-    return {
-      id: post.id,
-      slug: post.slug,
-      component: blogPost,
-      featuredImagePath: null,
-      category: post.categories.nodes[0].name,
-      tags: post.tags.nodes.map(tag => tag.name),
-    }
-  }));
+  });
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)

@@ -4,20 +4,17 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import { convertCategory } from "../utilFunction"
 
-const CategoryAll = () => {
+const CategoryAll = ({title = "カテゴリ"}) => {
 
   const all = [
-    '技術',
-    'イベントレポート',
-    '生活',
-    '用語集',
-    '書評',
-    '業務効率化',
+    '1',
+    '2',
+    '3',
   ]
 
   return (
     <CategoryAllTitle>
-      <h5>カテゴリ</h5>
+      <h5>{title}</h5>
       <ul>
       {all.map((category, index) => (
         <li key={index}>

@@ -11,7 +11,6 @@ import Pagination from "../components/pagination"
 type BlogIndexProps = {
   data: {
     allMdx: AllMdx
-    allWpPost: AllWpPost
     allFile: AllFile
   }
   location: Location
@@ -19,7 +18,7 @@ type BlogIndexProps = {
 
 const BlogIndex = ({ data, location }: BlogIndexProps) => {
 
-  const posts = mergePosts(data.allMdx, data.allWpPost, data.allFile)
+  const posts = mergePosts(data.allMdx, data.allFile)
 
   if (posts.length === 0) {
     return (
@@ -119,30 +118,6 @@ export const pageQuery = graphql`
           description
           featuredImagePath
           category
-        }
-      }
-    }
-    allWpPost(sort: { date: DESC }) {
-      nodes {
-        title
-        excerpt
-        slug
-        date(formatString: "YYYY/MM/DD")
-        featuredImage{
-          node{
-            altText
-            gatsbyImage(
-              width: 100,
-              height: 100
-              formats: [AUTO, WEBP, AVIF]
-              placeholder: BLURRED
-            )
-          }
-        }
-        categories {
-          nodes {
-            name
-          }
         }
       }
     }

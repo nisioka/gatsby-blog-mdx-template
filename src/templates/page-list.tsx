@@ -10,7 +10,7 @@ import { ContentsListHeader, ContentsOrderedListWrapper } from "../style"
 import Pagination from "../components/pagination"
 
 const PageList = ({ pageContext, data, location }: {pageContext: PageContext, data: any, location: Location}) => {
-  const posts = mergePosts(data.allMdx, data.allWpPost, data.allFile)
+  const posts = mergePosts(data.allMdx, data.allFile)
   const title = `記事一覧`
 
   return (
@@ -85,34 +85,6 @@ export const pageQuery = graphql`
           description
           featuredImagePath
           category
-        }
-      }
-    }
-    allWpPost(
-      limit: $limit
-      skip: $skip
-      sort: { date: DESC }
-    ) {
-      nodes {
-        title
-        excerpt
-        slug
-        date(formatString: "YYYY/MM/DD")
-        featuredImage{
-          node{
-            altText
-            gatsbyImage(
-              width: 100,
-              height: 100
-              formats: [AUTO, WEBP, AVIF]
-              placeholder: BLURRED
-            )
-          }
-        }
-        categories {
-          nodes {
-            name
-          }
         }
       }
     }

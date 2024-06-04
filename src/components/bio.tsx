@@ -25,7 +25,7 @@ const Bio = () => {
         className="bio-avatar"
         layout="fixed"
         formats={["auto", "webp", "avif"]}
-        src="../../static/24okBlock.webp"
+        src="../../static/favicon.webp"
         width={50}
         height={50}
         alt="Profile picture"
@@ -36,7 +36,7 @@ const Bio = () => {
           <FontAwesomeIcon icon={faGithub} fontSize={24} style={{color: "black"}} />
         </Link>
         <Link to={`https://twitter.com/${social.twitter}`} target="_blank" rel="noopener">
-          <FontAwesomeIcon icon={faXTwitter}fontSize={24}  style={{color: "black"}}/>
+          <FontAwesomeIcon icon={faXTwitter} fontSize={24}  style={{color: "black"}}/>
         </Link>
       </p>
     </div>

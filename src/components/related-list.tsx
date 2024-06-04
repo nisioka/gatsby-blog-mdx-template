@@ -9,9 +9,10 @@ type RelatedListProps = {
   slug: string
   category: string
   tags: string[]
+  title: string
 }
-const RelatedList = ({ slug, category, tags }: RelatedListProps) => {
-  const { allMdx, allWpPost, allFile }: {allMdx: AllMdx, allWpPost: AllWpPost, allFile: AllFile} = useStaticQuery(
+const RelatedList = ({ slug, category, tags, title = "関連記事" }: RelatedListProps) => {
+  const { allMdx, allFile }: {allMdx: AllMdx, allFile: AllFile} = useStaticQuery(
     graphql`
       query {
         allMdx(
@@ -29,37 +30,6 @@ const RelatedList = ({ slug, category, tags }: RelatedListProps) => {
               featuredImagePath
               category
               tags
-            }
-          }
-        }
-        allWpPost(
-          sort: { date: DESC }
-        ) {
-          nodes {
-            title
-            excerpt
-            slug
-            date(formatString: "YYYY/MM/DD")
-            featuredImage{
-              node{
-                altText
-                gatsbyImage(
-                  width: 100,
-                  height: 100
-                  formats: [AUTO, WEBP, AVIF]
-                  placeholder: BLURRED
-                )
-              }
-            }
-            categories {
-              nodes {
-                name
-              }
-            }
-            tags {
-              nodes {
-                name
-              }
             }
           }
         }
@@ -87,7 +57,7 @@ const RelatedList = ({ slug, category, tags }: RelatedListProps) => {
   )
 
   // 関連度計算。
-  const posts = mergePosts(allMdx, allWpPost, allFile).map(post => {
+  const posts = mergePosts(allMdx, allFile).map(post => {
     let point = 0
     if (post.slug !== slug) {
       // カテゴリの一致出力
@@ -108,7 +78,7 @@ const RelatedList = ({ slug, category, tags }: RelatedListProps) => {
   return (
     <>
       <ContentsListHeader>
-        <h2>関連記事</h2>
+        <h2>{title}</h2>
       </ContentsListHeader>
       <ContentsOrderedListWrapper>
         {posts.map((post, index) => {

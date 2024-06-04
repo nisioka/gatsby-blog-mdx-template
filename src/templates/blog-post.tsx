@@ -30,48 +30,37 @@ type BlogPostTemplateProps = {
         title: string
       }
     }
-    wpPost: WpPost
-    wpPrevious: {
-      id: string
-      title: string
-      slug: string
-    }
-    wpNext: {
-      id: string
-      title: string
-      slug: string
-    }
   }
   location: Location
   children: React.ReactNode
 }
 
 const BlogPostTemplate = ({
-  data: { allFile, mdx, mdPrevious, mdNext, wpPost, wpPrevious, wpNext },
+  data: { allFile, mdx, mdPrevious, mdNext },
   location, children
 }: BlogPostTemplateProps) => {
   const post = {
-    id: mdx?.id || wpPost?.id,
-    title: mdx?.frontmatter.title || wpPost?.title,
-    body: mdx?.body || wpPost?.content,
-    excerpt: mdx?.excerpt || wpPost?.excerpt,
-    slug: mdx?.fields.slug || "/" + wpPost?.slug,
-    date: mdx?.frontmatter.date || wpPost?.date,
+    id: mdx?.id,
+    title: mdx?.frontmatter.title,
+    body: mdx?.body,
+    excerpt: mdx?.excerpt,
+    slug: mdx?.fields.slug,
+    date: mdx?.frontmatter.date,
     description: mdx?.frontmatter.description,
-    altText: wpPost?.featuredImage?.node.altText || "",
-    gatsbyImage: wpPost?.featuredImage?.node.gatsbyImage || getImage(allFile.edges[0]?.node.childImageSharp),
-    category: mdx?.frontmatter.category || wpPost?.categories?.nodes[0]?.name,
-    tags: mdx?.frontmatter.tags || wpPost?.tags?.nodes.map(t => t.name),
+    altText: "",
+    gatsbyImage: getImage(allFile.edges[0]?.node.childImageSharp),
+    category: mdx?.frontmatter.category,
+    tags: mdx?.frontmatter.tags,
   }
   const previous = {
-    id: mdPrevious?.id || wpPrevious?.id,
-    title: mdPrevious?.frontmatter.title || wpPrevious?.title,
-    slug: mdPrevious?.fields.slug || "/" + wpPrevious?.slug,
+    id: mdPrevious?.id,
+    title: mdPrevious?.frontmatter.title,
+    slug: mdPrevious?.fields.slug,
   }
   const next = {
-    id: mdNext?.id || wpNext?.id,
-    title: mdNext?.frontmatter.title || wpNext?.title,
-    slug: mdNext?.fields.slug || "/" + wpNext?.slug,
+    id: mdNext?.id,
+    title: mdNext?.frontmatter.title,
+    slug: mdNext?.fields.slug,
   }
 
   return (
@@ -92,10 +81,12 @@ const BlogPostTemplate = ({
           </p>
         </header>
         <div className="featuredImage">
-          <GatsbyImage
-            image={post.gatsbyImage}
-            alt={post.title}
-          />
+          {post.gatsbyImage && (
+            <GatsbyImage
+              image={post.gatsbyImage}
+              alt={post.title}
+            />
+          )}
         </div>
         <Dl>
           <dt>カテゴリ</dt>
@@ -211,46 +202,14 @@ export const pageQuery = graphql`
         title
       }
     }
-    wpPost(id: { eq: $id }) {
-      id
-      title
-      content
-      excerpt
-      slug
-      date(formatString: "YYYY/MM/DD")
-      featuredImage{
-        node{
-          altText
-          gatsbyImage(width: 960)
-        }
-      }
-      categories{
-        nodes{
-          name
-        }
-      }
-      tags{
-        nodes{
-          name
-        }
-      }
-    }
-    wpPrevious: wpPost(id: { eq: $previousPostId }) {
-      title
-      slug
-    }
-    wpNext: wpPost(id: { eq: $nextPostId }) {
-      title
-      slug
-    }
   }
 `
 
 export const Head = ({
-                       data: { allFile, mdx, wpPost },
+                       data: { allFile, mdx },
                        location
                      }: BlogPostTemplateProps) => {
-  const post = mergePost(mdx, wpPost, allFile)
+  const post = mergePost(mdx, allFile)
   return (
     <Seo
       title={post.title}

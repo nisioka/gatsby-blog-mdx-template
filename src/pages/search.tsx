@@ -7,7 +7,7 @@ import { ContentsListHeader, ContentsOrderedListWrapper } from "../style"
 import { GatsbyImage } from "gatsby-plugin-image"
 
 const Search = ({ data, location }: {data: any, location: Location}) => {
-  const posts = mergePosts(data.allMdx, data.allWpPost, data.allFile)
+  const posts = mergePosts(data.allMdx, data.allFile)
 
   const [state, setState] = useState({
     filteredData: [] as CommonPost[],
@@ -115,30 +115,6 @@ export const pageQuery = graphql`
           description
           featuredImagePath
           category
-        }
-      }
-    }
-    allWpPost {
-      nodes {
-        title
-        content
-        slug
-        date(formatString: "YYYY/MM/DD")
-        featuredImage{
-          node{
-            altText
-            gatsbyImage(
-              width: 100,
-              height: 100
-              formats: [AUTO, WEBP, AVIF]
-              placeholder: BLURRED
-            )
-          }
-        }
-        categories {
-          nodes {
-            name
-          }
         }
       }
     }
